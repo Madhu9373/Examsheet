@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Classic Form</title>
+    <!-- <link rel="stylesheet" href="styles.css"> -->
+    <style type="text/css">
+        /* styles.css */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.form-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+h2 {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+@media (max-width: 600px) {
+    .form-container {
+        padding: 15px;
+    }
+}
+
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <form method="post" action="https://script.google.com/macros/s/AKfycbwgkXNMBcA1-WOlPD9D1FNMwk9MFG_SiZc_IzE8PdecC9rT5B-T-2jyiLIB-Xrbhr8D5Q/exec" name="exam-form">
+            <h2>Exam Registration Form</h2>
+            <label for="lastname">Last Name:</label>
+            <input type="text" id="lastname" name="lastname" required>
+
+            <label for="firstname">First Name:</label>
+            <input type="text" id="firstname" name="firstname" required>
+
+            <label for="middlename">Middle Name:</label>
+            <input type="text" id="middlename" name="middlename">
+
+            <label for="subject">Exam Subject:</label>
+            <input type="text" id="subject" name="subject" required>
+
+            <label for="contact">Contact No:</label>
+            <input type="text" id="contact" name="contact" required>
+
+            <label for="pcno">PC No:</label>
+            <input type="text" id="pcno" name="pcno" required>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    <script type="text/javascript">
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbwgkXNMBcA1-WOlPD9D1FNMwk9MFG_SiZc_IzE8PdecC9rT5B-T-2jyiLIB-Xrbhr8D5Q/exec'
+
+const form = document.forms['exam-form']
+
+form.addEventListener('submit', e => {
+  e.preventDefault()
+  fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+  .then(response => alert("Thank you! your form is submitted successfully." ))
+  .then(() => { window.location.reload(); })
+  .catch(error => console.error('Error!', error.message))
+})
+    </script>
+</body>
+</html>
