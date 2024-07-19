@@ -53,6 +53,10 @@
             border-radius: 4px;
             cursor: pointer;
         }
+         input[type="text"]
+         {
+            text-transform: uppercase;
+         }
 
         input[type="text"], select {
             width: 60%;
@@ -80,6 +84,10 @@
         button:hover {
             background-color: #45a049;
         }
+        h5
+        {
+            color: red;
+        }
 
         @media (max-width: 600px) {
             .form-container {
@@ -92,6 +100,7 @@
         <img src="logo.png" width="200px">
         <form id="exam-form" method="post" action="https://script.google.com/macros/s/AKfycbwgkXNMBcA1-WOlPD9D1FNMwk9MFG_SiZc_IzE8PdecC9rT5B-T-2jyiLIB-Xrbhr8D5Q/exec" name="exam-form">
             <h2>Exam Registration Form</h2>
+            <h5>(THIS NAME WILL BE PRINTED ON YOUR CERTIFICATE)</h5>
             <label for="lastname">Last Name:</label>
             <input type="text" id="lastname" name="lastname" required>
 
@@ -106,15 +115,16 @@
                 <div class="radio-group">
                     <input type="radio" id="slot1" name="timeslot" value="8-10" required>
                     <label for="slot1" class="slt1">8:00 AM - 10:00 AM</label>
-                    
                     <input type="radio" id="slot2" name="timeslot" value="10-12" required>
                     <label for="slot2">10:00 AM - 12:00 PM</label>
-                    
-                    <input type="radio" id="slot3" name="timeslot" value="4:30-6:30" required>
-                    <label for="slot3">4:30 PM - 6:30 PM</label>
-                    
-                    <input type="radio" id="slot4" name="timeslot" value="6:30-8:30" required>
-                    <label for="slot4">6:30 PM - 8:30 PM</label>
+                    <input type="radio" id="slot3" name="timeslot" value="12-2" required>
+                    <label for="slot3">12:00 PM - 2:00 PM</label>
+                    <input type="radio" id="slot4" name="timeslot" value="3-5" required>
+                    <label for="slot4">3:00 PM - 5:00 PM</label>
+                    <input type="radio" id="slot5" name="timeslot" value="5-7" required>
+                    <label for="slot5">5:00 PM - 7:00 PM</label>
+                    <input type="radio" id="slot6" name="timeslot" value="7-9" required>
+                    <label for="slot6">7:00 PM - 9:00 PM</label>
                 </div>
             </div>
             <label for="contact">Contact No:</label>
@@ -164,7 +174,7 @@
                     </optgroup>
                 </select>
                 <label for="examsubject">Your Exam Lab:</label>
-                <select id="lab" name="lab">
+                <select id="lab" name="lab" disabled>
                     <option value="">Select Lab</option>
                     <option value="4 MODULE LAB">4 MODULE LAB</option>
                     <option value="Software Lab">Software Lab</option>
@@ -173,8 +183,8 @@
                 </select>
             </div>
 
-            <label for="pcno">PC No:</label>
-            <input type="text" id="pcno" name="pcno" required>
+            <!-- <label for="pcno">PC No:</label>
+            <input type="text" id="pcno" name="pcno" required> -->
 
             <button type="submit">Submit</button>
             <button id="reset-button">Reset Time Slots</button>
@@ -196,7 +206,7 @@
         // Disable full time slots on page load
         function updateTimeSlotAvailability() {
             timeSlots.forEach((timeSlot) => {
-                if (timeSlotCounts[timeSlot.value] >= 13) {
+                if (timeSlotCounts[timeSlot.value] >= 14) {
                     timeSlot.disabled = true;
                 } else {
                     timeSlot.disabled = false;
@@ -212,12 +222,12 @@
             const timeslot = formData.get('timeslot');
 
             // Check if the time slot is available
-            if (timeSlotCounts[timeslot] < 13) {
+            if (timeSlotCounts[timeslot] < 14) {
                 // Register the student and update the count
                 registerStudent(timeslot);
                 timeSlotCounts[timeslot]++;
                 localStorage.setItem('timeSlotCounts', JSON.stringify(timeSlotCounts));
-                alert('Registration successful!');
+                alert('Registration is in process!');
                 updateTimeSlotAvailability();
             } else {
                 alert('Time slot not available. Please try again.');
