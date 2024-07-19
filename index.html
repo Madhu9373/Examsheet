@@ -196,7 +196,7 @@
         // Disable full time slots on page load
         function updateTimeSlotAvailability() {
             timeSlots.forEach((timeSlot) => {
-                if (timeSlotCounts[timeSlot.value] >= 14) {
+                if (timeSlotCounts[timeSlot.value] >= 13) {
                     timeSlot.disabled = true;
                 } else {
                     timeSlot.disabled = false;
@@ -212,7 +212,7 @@
             const timeslot = formData.get('timeslot');
 
             // Check if the time slot is available
-            if (timeSlotCounts[timeslot] < 14) {
+            if (timeSlotCounts[timeslot] < 13) {
                 // Register the student and update the count
                 registerStudent(timeslot);
                 timeSlotCounts[timeslot]++;
