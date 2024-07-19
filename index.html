@@ -53,10 +53,10 @@
             border-radius: 4px;
             cursor: pointer;
         }
-         input[type="text"]
-         {
+
+        input[type="text"] {
             text-transform: uppercase;
-         }
+        }
 
         input[type="text"], select {
             width: 60%;
@@ -85,15 +85,13 @@
         input[type="radio"] {
             display: inline;
         }
-        button
-        {
+        button {
             margin-top: 10px;
         }
         button:hover {
             background-color: #45a049;
         }
-        h5
-        {
+        h5 {
             color: red;
         }
 
@@ -110,13 +108,13 @@
             <h2>Exam Registration Form</h2>
             <h5>(THIS NAME WILL BE PRINTED ON YOUR CERTIFICATE)</h5>
             <label for="lastname">Last Name:</label>
-            <input type="text" id="lastname" name="lastname" required>
+            <input type="text" id="lastname" name="lastname" required oninput="convertToUpperCase(this)">
 
             <label for="firstname">First Name:</label>
-            <input type="text" id="firstname" name="firstname" required>
+            <input type="text" id="firstname" name="firstname" required oninput="convertToUpperCase(this)">
 
             <label for="middlename">Middle Name:</label>
-            <input type="text" id="middlename" name="middlename">
+            <input type="text" id="middlename" name="middlename" oninput="convertToUpperCase(this)">
 
             <div class="form-group">
                 <label for="timeslot">Time Slot:</label>
@@ -182,18 +180,8 @@
                     </optgroup>
                 </select>
                 <label for="examsubject">Your Exam Lab:</label>
-               <!--  <select id="lab" name="lab">
-                    <option value="">Select Lab</option>
-                    <option value="4 MODULE LAB">4 MODULE LAB</option>
-                    <option value="Software Lab">Software Lab</option>
-                    <option value="Data Science Lab">Data Science Lab</option>
-                    <option value="ANIMATION LAB">ANIMATION LAB</option>
-                </select> -->
                 <input type="text" name="lab" id="lab" readonly>
             </div>
-
-            <!-- <label for="pcno">PC No:</label>
-            <input type="text" id="pcno" name="pcno" required> -->
 
             <button type="submit">Submit</button>
             <button id="reset-button">Reset Time Slots</button>
@@ -227,6 +215,9 @@
         frm.addEventListener('submit', (e) => {
             e.preventDefault();
 
+            // Convert text inputs to uppercase
+            convertAllToUpperCase();
+
             const formData = new FormData(frm);
             const timeslot = formData.get('timeslot');
 
@@ -256,6 +247,16 @@
             updateTimeSlotAvailability();
             alert('Time slots have been reset.');
         });
+
+        function convertToUpperCase(input) {
+            input.value = input.value.toUpperCase();
+        }
+
+        function convertAllToUpperCase() {
+            document.getElementById('lastname').value = document.getElementById('lastname').value.toUpperCase();
+            document.getElementById('firstname').value = document.getElementById('firstname').value.toUpperCase();
+            document.getElementById('middlename').value = document.getElementById('middlename').value.toUpperCase();
+        }
     </script>
 
     <script type="text/javascript">
@@ -283,7 +284,6 @@
                     labSelect.value = "4 MODULE LAB";
                     break;
 
-
                 case "DIPLOMA IN WEBPROGRAMMING":
                 case "C,C++":
                 case "JAVA":
@@ -295,7 +295,6 @@
                     labSelect.value = "Software Lab";
                     break;
 
-
                 case "SQL":
                 case "PYTHON":
                 case "POWER BI":
@@ -303,7 +302,6 @@
                 case "DIGITAL MARKETING":
                 case "DIPLOMA IN CONSTRUCTION & INTERIOR DESIGINING":
                     labSelect.value = "Data Science Lab";
-                    break;
                     break;
                 default:
                     labSelect.value = "ANIMATION LAB";
