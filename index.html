@@ -3,76 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exam Attendance Form</title>
+    <title>Simple Classic Form</title>
     <!-- <link rel="stylesheet" href="styles.css"> -->
     <style type="text/css">
         /* styles.css */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f2f2f2;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-}
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
 
-.form-container {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 400px;
-    margin-top:150px;
-}
+        .form-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            margin-top: 400px;
+        }
 
-h2 {
-    margin-bottom: 20px;
-}
+        h2 {
+            margin-bottom: 20px;
+        }
 
-label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-}
+        label {
+            display: inline;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
 
-input {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
+        input {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 30px;
+        }
 
-button {
-    width: 100%;
-    padding: 10px;
-    background-color: #4CAF50;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
 
-button:hover {
-    background-color: #45a049;
-}
+        input[type="text"], select {
+            width: 60%;
+            display: block;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+        }
 
-@media (max-width: 600px) {
-    .form-container {
-/*         padding: 15px; */
-        padding-right: 33px;
-    
-    }
-}
+        .radio-group {
+            margin-bottom: 20px;
+        }
+        
+        .slt1 {
+            margin-top: 30px;
+        }
 
+        input[type="radio"] {
+            display: inline;
+        }
+        button
+        {
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+
+        @media (max-width: 600px) {
+            .form-container {
+            }
+        }
     </style>
 </head>
 <body>
     <div class="form-container">
         <img src="logo.png" width="200px">
-        <form method="post" action="https://script.google.com/macros/s/AKfycbwgkXNMBcA1-WOlPD9D1FNMwk9MFG_SiZc_IzE8PdecC9rT5B-T-2jyiLIB-Xrbhr8D5Q/exec" name="exam-form">
+        <form id="exam-form" method="post" action="https://script.google.com/macros/s/AKfycbwgkXNMBcA1-WOlPD9D1FNMwk9MFG_SiZc_IzE8PdecC9rT5B-T-2jyiLIB-Xrbhr8D5Q/exec" name="exam-form">
             <h2>Exam Registration Form</h2>
             <label for="lastname">Last Name:</label>
             <input type="text" id="lastname" name="lastname" required>
@@ -81,32 +99,198 @@ button:hover {
             <input type="text" id="firstname" name="firstname" required>
 
             <label for="middlename">Middle Name:</label>
-            <input type="text" id="middlename" name="middlename" required>
+            <input type="text" id="middlename" name="middlename">
 
-            <label for="subject">Exam Subject:</label>
-            <input type="text" id="subject" name="subject" required>
-
+            <div class="form-group">
+                <label for="timeslot">Time Slot:</label>
+                <div class="radio-group">
+                    <input type="radio" id="slot1" name="timeslot" value="8-10" required>
+                    <label for="slot1" class="slt1">8:00 AM - 10:00 AM</label>
+                    <input type="radio" id="slot2" name="timeslot" value="10-12" required>
+                    <label for="slot2">10:00 AM - 12:00 PM</label>
+                    <input type="radio" id="slot3" name="timeslot" value="12-2" required>
+                    <label for="slot3">12:00 PM - 2:00 PM</label>
+                    <input type="radio" id="slot4" name="timeslot" value="3-5" required>
+                    <label for="slot4">3:00 PM - 5:00 PM</label>
+                    <input type="radio" id="slot5" name="timeslot" value="5-7" required>
+                    <label for="slot5">5:00 PM - 7:00 PM</label>
+                    <input type="radio" id="slot6" name="timeslot" value="7-9" required>
+                    <label for="slot6">7:00 PM - 9:00 PM</label>
+                </div>
+            </div>
             <label for="contact">Contact No:</label>
             <input type="text" id="contact" name="contact" required>
+
+            <div class="form-group">
+                <label for="examsubject">Exam Subject:</label>
+                <select id="subject" name="subject" onchange="selectLab(this.value)">
+                    <option value="">Select Subject</option>
+                    <optgroup label="ACCOUNTS COURSES">
+                    <option value="DIPLOMA IN MS-OFFICE">DIPLOMA IN MS-OFFICE</option>
+                    <option value="ADVANCE EXCEL">ADVANCE EXCEL</option>
+                    <option value="TALLY PRIME">TALLY PRIME</option>
+                    <option value="ADVANCE TALLY PRIME">ADVANCE TALLY PRIME</option>
+                    <option value="ICCA">ICCA</option>
+                </optgroup>
+
+                <optgroup label="SOFTWARE COURSES">
+                    <option value="DIPLOMA IN WEBPROGRAMMING">DIPLOMA IN WEBPROGRAMMING</option>
+                    <option value="C,C++">C,C++</option>
+                    <option value="JAVA">JAVA</option>
+                    <option value=".NET">.NET</option>
+                    <!--  -->
+                    <option value="ANDROID">ANDROID</option>
+                    <option value="FRONT-END DEVELOPER">FRONT-END DEVELOPER</option>
+                    <option value="BACK-END DEVELOPER">BACK-END DEVELOPER</option>
+                    <option value="FULL STACT DEVELOPER">FULL STACT DEVELOPER</option>
+                </optgroup>
+                <optgroup label="DATA SCIENCE COURSES">
+                    <option value="SQL">SQL</option>
+                    <option value="PYTHON">PYTHON</option>
+                    <option value="POWER BI">POWER BI</option>
+                    <option value="DATA ANALYST">DATA ANALYST</option>
+                </optgroup>
+                    <!-- <option value="POWER BI">POWER BI</option> -->
+                    <option value="DIGITAL MARKETING">DIGITAL MARKETING</option>
+                    <!--ANIMATON COURSES  -->
+                    <optgroup label="ANIMATION COURSES">
+                    <option value="DTP">DTP</option>
+                    <option value="2D ANIMATION">2D ANIMATION</option>
+                    <option value="3D ANIMATION">3D ANIMATION</option>
+                    <option value="GRAPHICS AND MOTION GRAPHICS">GRAPHICS AND MOTION GRAPHICS</option>
+                </optgroup>
+                    <!-- AUTO CAD COURSES -->
+                    <optgroup label="AUTO CAD COURSES">
+                        <option value="DIPLOMA IN CONSTRUCTION & INTERIOR DESIGINING">DIPLOMA IN CONSTRUCTION & INTERIOR DESIGINING</option>
+                    </optgroup>
+                </select>
+                <label for="examsubject">Your Exam Lab:</label>
+                <select id="lab" name="lab">
+                    <option value="">Select Lab</option>
+                    <option value="4 MODULE LAB">4 MODULE LAB</option>
+                    <option value="Software Lab">Software Lab</option>
+                    <option value="Data Science Lab">Data Science Lab</option>
+                    <option value="ANIMATION LAB">ANIMATION LAB</option>
+                </select>
+            </div>
 
             <label for="pcno">PC No:</label>
             <input type="text" id="pcno" name="pcno" required>
 
             <button type="submit">Submit</button>
+            <button id="reset-button">Reset Time Slots</button>
         </form>
     </div>
+
+    <script>
+        const frm = document.getElementById('exam-form');
+        const timeSlots = document.getElementsByName('timeslot');
+        const timeSlotCounts = JSON.parse(localStorage.getItem('timeSlotCounts')) || {};
+
+        // Initialize time slot counts if not present
+        timeSlots.forEach((timeSlot) => {
+            if (!timeSlotCounts[timeSlot.value]) {
+                timeSlotCounts[timeSlot.value] = 0;
+            }
+        });
+
+        // Disable full time slots on page load
+        function updateTimeSlotAvailability() {
+            timeSlots.forEach((timeSlot) => {
+                if (timeSlotCounts[timeSlot.value] >= 14) {
+                    timeSlot.disabled = true;
+                } else {
+                    timeSlot.disabled = false;
+                }
+            });
+        }
+        updateTimeSlotAvailability();
+
+        frm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const formData = new FormData(frm);
+            const timeslot = formData.get('timeslot');
+
+            // Check if the time slot is available
+            if (timeSlotCounts[timeslot] < 14) {
+                // Register the student and update the count
+                registerStudent(timeslot);
+                timeSlotCounts[timeslot]++;
+                localStorage.setItem('timeSlotCounts', JSON.stringify(timeSlotCounts));
+                alert('Registration successful!');
+                updateTimeSlotAvailability();
+            } else {
+                alert('Time slot not available. Please try again.');
+            }
+        });
+
+        function registerStudent(timeslot) {
+            // Simulate registering the student (e.g., add to a list or database)
+            console.log(`Student registered for time slot ${timeslot}`);
+        }
+
+        // Reset button functionality
+        const resetButton = document.getElementById('reset-button');
+        resetButton.addEventListener('click', () => {
+            Object.keys(timeSlotCounts).forEach(slot => timeSlotCounts[slot] = 0);
+            localStorage.setItem('timeSlotCounts', JSON.stringify(timeSlotCounts));
+            updateTimeSlotAvailability();
+            alert('Time slots have been reset.');
+        });
+    </script>
+
     <script type="text/javascript">
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbwgkXNMBcA1-WOlPD9D1FNMwk9MFG_SiZc_IzE8PdecC9rT5B-T-2jyiLIB-Xrbhr8D5Q/exec'
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbwgkXNMBcA1-WOlPD9D1FNMwk9MFG_SiZc_IzE8PdecC9rT5B-T-2jyiLIB-Xrbhr8D5Q/exec';
+        const form = document.forms['exam-form'];
 
-const form = document.forms['exam-form']
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            fetch(scriptURL, { method: 'POST', body: new FormData(form) })
+                .then(response => alert("Thank you! Your form is submitted successfully."))
+                .then(() => { window.location.reload(); })
+                .catch(error => console.error('Error!', error.message));
+        });
+    </script>
 
-form.addEventListener('submit', e => {
-  e.preventDefault()
-  fetch(scriptURL, { method: 'POST', body: new FormData(form)})
-  .then(response => alert("Thank you! your form is submitted successfully." ))
-  .then(() => { window.location.reload(); })
-  .catch(error => console.error('Error!', error.message))
-})
+    <script>
+        function selectLab(subject) {
+            var labSelect = document.getElementById("lab");
+            switch (subject) {
+                case "DIPLOMA IN MS-OFFICE":
+                case "ADVANCE EXCEL":
+                case "TALLY PRIME":
+                case "ADVANCE TALLY PRIME":
+                case "ICCA":
+                    labSelect.value = "4 MODULE LAB";
+                    break;
+
+
+                case "DIPLOMA IN WEBPROGRAMMING":
+                case "C,C++":
+                case "JAVA":
+                case ".NET":
+                case "ANDROID":
+                case "FRONT-END DEVELOPER":
+                case "BACK-END DEVELOPER":
+                case "FULL STACT DEVELOPER":
+                    labSelect.value = "Software Lab";
+                    break;
+
+
+                case "SQL":
+                case "PYTHON":
+                case "POWER BI":
+                case "DATA ANALYST":
+                case "DIGITAL MARKETING":
+                case "DIPLOMA IN CONSTRUCTION & INTERIOR DESIGINING":
+                    labSelect.value = "Data Science Lab";
+                    break;
+                    break;
+                default:
+                    labSelect.value = "ANIMATION LAB";
+            }
+        }
     </script>
 </body>
 </html>
