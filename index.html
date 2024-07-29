@@ -124,7 +124,7 @@
                     <input type="radio" id="slot2" name="timeslot" value="10-12" required>
                     <label for="slot2">10:00 AM - 12:00 PM</label>
                     <input type="radio" id="slot3" name="timeslot" value="4:30-6:30" required>
-                    <label for="slot3">4:30 PM - 6:60 PM</label>
+                    <label for="slot3">4:30 PM - 6:30 PM</label>
                     <input type="radio" id="slot4" name="timeslot" value="6:30-8:30" required>
                     <label for="slot4">6:30:00 PM - 8:30 PM</label>
                     
@@ -146,8 +146,8 @@
                 </optgroup>
 
                 <optgroup label="SOFTWARE COURSES">
-                    <option value="DIPLOMA IN WEBPROGRAMMING">DIPLOMA IN WEBPROGRAMMING</option>
-                    <option value="C,C++">C,C++</option>
+                    <option value="DIPLOMA IN WEB PROGRAMMING">DIPLOMA IN WEB PROGRAMMING</option>
+                    <option value="C & C++">C & C++</option>
                     <option value="JAVA">JAVA</option>
                     <option value=".NET">.NET</option>
                     <!--  -->
@@ -166,7 +166,7 @@
                     <option value="DIGITAL MARKETING">DIGITAL MARKETING</option>
                     <!--ANIMATON COURSES  -->
                     <optgroup label="ANIMATION COURSES">
-                    <option value="DTP">DTP</option>
+                    <option value="DESKTOP PUBLISHING">DESKTOP PUBLISHING</option>
                     <option value="2D ANIMATION">2D ANIMATION</option>
                     <option value="3D ANIMATION">3D ANIMATION</option>
                     <option value="GRAPHICS AND MOTION GRAPHICS">GRAPHICS AND MOTION GRAPHICS</option>
@@ -178,6 +178,8 @@
                 </select>
                 <label for="examsubject">Your Exam Lab:</label>
                 <input type="text" name="lab" id="lab" readonly>
+                 <label for="Facuiltyname">Facuilty Name:</label>
+                <input type="text" name="facuilty" id="facuilty" required oninput="convertToUpperCase(this)">
             </div>
 
             <button type="submit">Submit</button>
@@ -253,6 +255,7 @@
             document.getElementById('lastname').value = document.getElementById('lastname').value.toUpperCase();
             document.getElementById('firstname').value = document.getElementById('firstname').value.toUpperCase();
             document.getElementById('middlename').value = document.getElementById('middlename').value.toUpperCase();
+            document.getElementById('facuilty').value = document.getElementById('facuilty').value.toUpperCase();
         }
     </script>
 
@@ -281,8 +284,8 @@
                     labSelect.value = "4 MODULE LAB";
                     break;
 
-                case "DIPLOMA IN WEBPROGRAMMING":
-                case "C,C++":
+                case "DIPLOMA IN WEB PROGRAMMING":
+                case "C & C++":
                 case "JAVA":
                 case ".NET":
                 case "ANDROID":
