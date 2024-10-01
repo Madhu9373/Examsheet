@@ -175,8 +175,28 @@
                 </select>
                 <label for="examsubject">Your Exam Lab:</label>
                 <input type="text" name="lab" id="lab" readonly>
-                 <label for="Facuiltyname">Facuilty Name:</label>
-              <input type="text" name="facuilty" id="facuilty" required oninput="convertToUpperCase(this)">
+                <label for="facuiltyname">Faculty Name:</label>
+                <select name="facuilty" id="facuilty" required>
+                    <option value="">Select Faculty</option>
+                    <option value="ZULKAR SIR">ZULKAR SIR</option>
+                    <option value="AJAY SIR">AJAY SIR</option>
+                    <option value="UJJWAL SIR">UJJWAL SIR</option>
+                    <option value="SHAGUFA MAM">SHAGUFA MAM</option>
+                    <option value="AARTI MAM">AARTI MAM</option>
+                    <option value="MADHU MAM">MADHU MAM</option>
+                    <option value="POOJA MAM">POOJA MAM</option>
+                    <option value="VAIBHAV SIR">VAIBHAV SIR</option>
+                    <option value="BHAVESH SIR">BHAVESH SIR</option>
+                    <option value="PRATHAMESH SIR">PRATHAMESH SIR</option>
+                    <option value="NIDHI MAM">NIDHI MAM</option>
+                    <option value="NADIM SIR">NADIM SIR</option>
+                    <option value="GLAN SIR">GLAN SIR</option>
+                    <option value="VIMAL SIR">VIMAL SIR</option>
+                    <option value="ABDUL SIR">ABDUL SIR</option>
+                    <option value="DINESH SIR">DINESH SIR</option>
+                    <option value="CHIRAG SIR">CHIRAG SIR</option>
+                    <option value="ASHOK SIR">ASHOK SIR</option>
+                </select>
             </div>
             <lable for="date">Exam Date:</lable>
             <input type="date" name="date" required>
@@ -253,7 +273,7 @@
             document.getElementById('lastname').value = document.getElementById('lastname').value.toUpperCase();
             document.getElementById('firstname').value = document.getElementById('firstname').value.toUpperCase();
             document.getElementById('middlename').value = document.getElementById('middlename').value.toUpperCase();
-            document.getElementById('facuilty').value = document.getElementById('facuilty').value.toUpperCase();
+            // document.getElementById('facuilty').value = document.getElementById('facuilty').value.toUpperCase();
         }
     </script>
 
