@@ -95,10 +95,10 @@
             color: red;
         }
 
-        @media (max-width: 600px) {
+        /*@media (max-width: 600px) {
             .form-container {
             }
-        }
+        }*/
     </style>
 </head>
 <body>
@@ -138,6 +138,14 @@
                 <label for="examsubject">Exam Subject:</label>
                 <select id="subject" name="subject" onchange="selectLab(this.value)">
                     <option value="">Select Subject</option>
+                    <!-- <optgroup label="HARDWARE COURSES">
+                        <option value="DIPLOMA IN COMPUTER HARDWARE & NETWORKING">DIPLOMA IN COMPUTER HARDWARE & NETWORKING</option>
+                        <option value="DIPLOMA IN COMPUTER HARDWARE & NETWORKING WITH CCNA">DIPLOMA IN COMPUTER HARDWARE & NETWORKING WITH CCNA</option>
+                        <option value="CCNA">CCNA</option>
+                        <option value="CCNP">CCNP</option>
+                        <option value="MOBILE REPAIRING">MOBILE REPAIRING</option>
+                        </optgroup> -->
+                    
                     <optgroup label="ACCOUNTS COURSES">
                     <option value="DIPLOMA IN MS-OFFICE">DIPLOMA IN MS-OFFICE</option>
                     <option value="ADVANCE EXCEL">ADVANCE EXCEL</option>
@@ -216,59 +224,98 @@
     <script>
         const frm = document.getElementById('exam-form');
         const timeSlots = document.getElementsByName('timeslot');
-        const timeSlotCounts = JSON.parse(localStorage.getItem('timeSlotCounts')) || {};
+        // Group mapping for each subject
+        const subjectGroupMap = {
+            'DIPLOMA IN MS-OFFICE': 'ACCOUNTS COURSES',
+            'ADVANCE EXCEL': 'ACCOUNTS COURSES',
+            'TALLY PRIME': 'ACCOUNTS COURSES',
+            'ADVANCE TALLY PRIME': 'ACCOUNTS COURSES',
+            'ICCA': 'ACCOUNTS COURSES',
+            'DIPLOMA IN WEB PROGRAMMING': 'SOFTWARE COURSES',
+            'C & C++': 'SOFTWARE COURSES',
+            'JAVA': 'SOFTWARE COURSES',
+            '.NET': 'SOFTWARE COURSES',
+            'PHP': 'SOFTWARE COURSES',
+            'ANDROID': 'SOFTWARE COURSES',
+            'FRONT-END DEVELOPER': 'SOFTWARE COURSES',
+            'BACK-END DEVELOPER': 'SOFTWARE COURSES',
+            'REACT': 'SOFTWARE COURSES',
+            'FULL STACT DEVELOPER': 'SOFTWARE COURSES',
+            'SQL': 'DATA SCIENCE COURSES',
+            'PYTHON': 'DATA SCIENCE COURSES',
+            'POWER BI': 'DATA SCIENCE COURSES',
+            'MACHINE LEARNING': 'DATA SCIENCE COURSES',
+            'DATA ANALYST': 'DATA SCIENCE COURSES',
+            'DIGITAL MARKETING': 'DATA SCIENCE COURSES',
+            'DESKTOP PUBLISHING': 'ANIMATION COURSES',
+            '2D ANIMATION': 'ANIMATION COURSES',
+            '3D ANIMATION': 'ANIMATION COURSES',
+            'GRAPHICS AND MOTION GRAPHICS': 'ANIMATION COURSES',
+            'DIPLOMA IN CONSTRUCTION & INTERIOR DESIGINING': 'AUTO CAD COURSES',
+        };
 
-        // Initialize time slot counts if not present
-        timeSlots.forEach((timeSlot) => {
-            if (!timeSlotCounts[timeSlot.value]) {
-                timeSlotCounts[timeSlot.value] = 0;
-            }
-        });
+        // Load or initialize group time slot counts
+        let groupTimeSlotCounts = JSON.parse(localStorage.getItem('groupTimeSlotCounts')) || {};
+        function getSelectedGroup() {
+            const subject = document.getElementById('subject').value;
+            return subjectGroupMap[subject] || null;
+        }
 
-        // Disable full time slots on page load
         function updateTimeSlotAvailability() {
+            const group = getSelectedGroup();
             timeSlots.forEach((timeSlot) => {
-                if (timeSlotCounts[timeSlot.value] >= 14) {
+                if (!group) {
                     timeSlot.disabled = true;
                 } else {
-                    timeSlot.disabled = false;
+                    const groupCounts = groupTimeSlotCounts[group] || {};
+                    if ((groupCounts[timeSlot.value] || 0) >= 14) {
+                        timeSlot.disabled = true;
+                    } else {
+                        timeSlot.disabled = false;
+                    }
                 }
             });
         }
+
+        // Update on subject change
+        document.getElementById('subject').addEventListener('change', updateTimeSlotAvailability);
+        // Initial state
         updateTimeSlotAvailability();
 
         frm.addEventListener('submit', (e) => {
             e.preventDefault();
-
-            // Convert text inputs to uppercase
             convertAllToUpperCase();
-
             const formData = new FormData(frm);
             const timeslot = formData.get('timeslot');
-
-            // Check if the time slot is available
-            if (timeSlotCounts[timeslot] < 14) {
-                // Register the student and update the count
-                registerStudent(timeslot);
-                timeSlotCounts[timeslot]++;
-                localStorage.setItem('timeSlotCounts', JSON.stringify(timeSlotCounts));
+            const subject = formData.get('subject');
+            const group = subjectGroupMap[subject];
+            if (!group) {
+                alert('Please select a valid subject.');
+                return;
+            }
+            if (!groupTimeSlotCounts[group]) groupTimeSlotCounts[group] = {};
+            if (!groupTimeSlotCounts[group][timeslot]) groupTimeSlotCounts[group][timeslot] = 0;
+            if (groupTimeSlotCounts[group][timeslot] < 15) {
+                registerStudent(timeslot, group);
+                groupTimeSlotCounts[group][timeslot]++;
+                localStorage.setItem('groupTimeSlotCounts', JSON.stringify(groupTimeSlotCounts));
                 alert('Registration is in process!');
                 updateTimeSlotAvailability();
             } else {
-                alert('Time slot not available. Please try again.');
+                alert('Time slot not available for this subject group. Please try another slot.');
             }
         });
 
-        function registerStudent(timeslot) {
+        function registerStudent(timeslot, group) {
             // Simulate registering the student (e.g., add to a list or database)
-            console.log(`Student registered for time slot ${timeslot}`);
+            console.log(`Student registered for group ${group} in time slot ${timeslot}`);
         }
 
         // Reset button functionality
         const resetButton = document.getElementById('reset-button');
         resetButton.addEventListener('click', () => {
-            Object.keys(timeSlotCounts).forEach(slot => timeSlotCounts[slot] = 0);
-            localStorage.setItem('timeSlotCounts', JSON.stringify(timeSlotCounts));
+            groupTimeSlotCounts = {};
+            localStorage.setItem('groupTimeSlotCounts', JSON.stringify(groupTimeSlotCounts));
             updateTimeSlotAvailability();
             alert('Time slots have been reset.');
         });
@@ -281,7 +328,6 @@
             document.getElementById('lastname').value = document.getElementById('lastname').value.toUpperCase();
             document.getElementById('firstname').value = document.getElementById('firstname').value.toUpperCase();
             document.getElementById('middlename').value = document.getElementById('middlename').value.toUpperCase();
-            // document.getElementById('facuilty').value = document.getElementById('facuilty').value.toUpperCase();
         }
     </script>
 
